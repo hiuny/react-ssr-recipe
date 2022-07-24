@@ -60,7 +60,7 @@ module.exports = {
             //  exportOnlyLocals: true 옵션을 설정해야 실제 css 파일을 생성하지 않습니다.
             loader: require.resolve('css-loader'),
             options: {
-              exportOnlyLocals: true
+              // exportOnlyLocals: true
             }
           },
           // CSS Module 을 위한 처리
