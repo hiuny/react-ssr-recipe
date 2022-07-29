@@ -1,19 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import { applyMiddleware, createStore } from 'redux';
-import { Provider } from 'react-redux';
-import rootReducer from './modules';
-import thunk from 'redux-thunk';
+import thunk from 'redux-thunk'
+import createSagaMiddleware from 'redux-saga'
+import { applyMiddleware, createStore } from 'redux'
+import './index.css'
+import App from './App'
+import reportWebVitals from './reportWebVitals'
+import rootReducer, { rootSaga } from './modules'
+
+const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
   rootReducer,
   window.__PRELOAD_STATE__, // 이 값을 초기 상태로 사용함
-  applyMiddleware(thunk)
+  applyMiddleware(thunk, sagaMiddleware)
 )
+sagaMiddleware.run(rootSaga)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
